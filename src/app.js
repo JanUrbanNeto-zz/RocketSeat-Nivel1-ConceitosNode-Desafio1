@@ -1,7 +1,7 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const cors = require('cors');
 
-const { uuid, isUuid } = require("uuidv4");
+const { uuid, isUuid } = require('uuidv4');
 
 const app = express();
 
@@ -14,7 +14,7 @@ function validadateId(req, res, next) {
   const { id } = req.params;
 
   if(!isUuid(id)) {
-    return res.status(400).json({ error : 'invalid project ID.' });
+    return res.status(400).json({ error: 'invalid project ID.' });
   }
 
   return next();
@@ -22,11 +22,11 @@ function validadateId(req, res, next) {
 
 app.use('/repositories/:id', validadateId);
 
-app.get("/repositories", (request, response) => {
+app.get('/repositories', (request, response) => {
   return response.json(repositories);
 });
 
-app.post("/repositories", (request, response) => {
+app.post('/repositories', (request, response) => {
   const { title, url, tech } = request.body;
 
   const repository = { 
@@ -42,7 +42,7 @@ app.post("/repositories", (request, response) => {
   return response.json(repository);
 });
 
-app.put("/repositories/:id", (request, response) => {
+app.put('/repositories/:id', (request, response) => {
   const { id } = request.params;
   const { title, url, tech } = request.body;
 
@@ -67,7 +67,7 @@ app.put("/repositories/:id", (request, response) => {
   return response.json(repository);
 });
 
-app.delete("/repositories/:id", (request, response) => {
+app.delete('/repositories/:id', (request, response) => {
   const { id } = request.params;
   
   const repositoryIndex = repositories.findIndex(repository => repository.id === id);
@@ -81,7 +81,7 @@ app.delete("/repositories/:id", (request, response) => {
   return response.send();
 });
 
-app.post("/repositories/:id/like", (request, response) => {
+app.post('/repositories/:id/like', (request, response) => {
   const { id } = request.params;
 
   const repositoryIndex = repositories.findIndex(repository => repository.id === id);
